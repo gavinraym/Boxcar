@@ -9,6 +9,7 @@ class Die():
     def roll(self):
         if self.in_play:
             self.value = random.randint(1,6)
+        return str(self.value)
         
     def set_keep(self):
         self.in_play = False

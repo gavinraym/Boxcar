@@ -1,5 +1,5 @@
 from die import Die
-from clear_screen import clear()
+from hopper import clear
 import time
 import random
 
@@ -8,7 +8,7 @@ class Player():
         self.player_num = player_num
         self.name = str(input("What is Player {}'s name: ".format(player_num)))
         self.score = 0
-        self.dice_list = list()
+        self.dice_list
 
     def __str__(self):
         return f"{self.name} has a score of: {self.score}"
@@ -30,16 +30,14 @@ class Player():
 
     def roll_dice(self):
         # Dice still marked as 'in_play' are rolled.
-        for _ in range(15):
-            clear_screen.clear()
-            stando = str()
+        stdout = ''
+        print(f'{self.name} is rolling...')
+        print(stdout)
+        for _ in range(10):
             for dice in self.dice_list:
-                dice.roll()
-                stando = stando + ' ' + str(dice.get_value())
-            print(f'\r{self.name} is rolling...\n{stando}'.format)    
-
-
-
+                stdout = stdout + ' ' + dice.roll()
+            print(f"Die number :{dice} rolled a :{dice.roll}")
+        
     def choose_dice(self):
         # Player can choose to un-mark dice as 'in_play'
         # Only 'in_play' dice are rolled.
