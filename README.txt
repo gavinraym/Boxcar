@@ -1,10 +1,14 @@
 BOXCAR~ a game for railroad hobos!
   Collaborators: Gavin Ray, Molly Hardy
 
+Welcome! This project is just for fun, and everyone is invited to join us. please
+start by adding your name to the line of collaborators above.
 
+If you use code that you did not write, please add in a comment where it
+came from, kinda like this:
 
-The following game rules were taken from 
-https://www.thevoyagershop.com/blogs/news/14961333-study-david-korty:
+# The following game rules were taken from 
+# https://www.thevoyagershop.com/blogs/news/14961333-study-david-korty:
 
     MR. NATURAL RULES AND INSTRUCTIONS
 

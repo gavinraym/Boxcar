@@ -11,7 +11,7 @@ class Game():
         # Turns are managed on player.py.
         # Rounds continue until a player reaches 10,000 points.
         for player in self.players:
-            player.round()
+            player.take_turn()
             print('Current score: ', player)
 
     def end_game(self):
