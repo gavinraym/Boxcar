@@ -1,5 +1,5 @@
 BOXCAR~ a game for railroad hobos!
-  Collaborators: Gavin Ray, Molly Hardy
+  Collaborators: Gavin Ray, Molly Hardy, Rachel Bushinsky
 
 Welcome! This project is just for fun, and everyone is invited to join us. please
 start by adding your name to the line of collaborators above.
