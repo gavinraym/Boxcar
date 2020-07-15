@@ -1,15 +1,15 @@
-from coach import Player
 from cabouse import Score
 from hopper import display
 from hopper import log
+import csv
 
 class Engine():
-    def __init__(self, rounds=1):
-        # [rounds] indicates how many rounds should be played total
-        self.rounds = rounds
+    def __init__(self, player, f):
         # player and score objects used
-        self.player = Player()
+        self.player = player
         self.score = Score()
+        # [f] = file for storing score data
+        self.f = f
         # Round points are not awarded until end of round
         self.round_points = int()
         # A Round starts with 3 dice rolls.
@@ -58,7 +58,7 @@ class Engine():
     
     def ask_player(self):
         # Player must decided wether to roll again or keep points
-        if self.player.roll_or_stay(self.score):
+        if self.player.roll_or_stay(self.score.dice, self.round_points):
             self.roll_dice()
         else:
             self.win_round()
@@ -66,15 +66,14 @@ class Engine():
 #==============================================================================
 
     def win_round(self):
-        log(f'round won: {self.round_points}')
+        self.f.write(f"{self.round_points}, 'win'\n")
 
 #==============================================================================
 
     def lose_round(self):
-        log(f'round lost.')
+        self.f.write(f"{self.round_points}, 'loss'\n")
 
 #==============================================================================
 
 if __name__ == '__main__':
-    game = Engine()
-    game.play_round()
+    pass
