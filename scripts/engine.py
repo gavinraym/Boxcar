@@ -16,6 +16,8 @@ class Engine():
         self.rolls = int()
         # [state], is this round a loss or a win
         self.state = bool
+        # Keeps track of round, used for csv index
+        self.round = 0
     
 #==============================================================================
 
@@ -66,12 +68,14 @@ class Engine():
 #==============================================================================
 
     def win_round(self):
-        self.f.write(f"{self.round_points}, 'win'\n")
+        self.round += 1
+        self.f.write(f"{self.round},{self.round_points},'win'\n")
 
 #==============================================================================
 
     def lose_round(self):
-        self.f.write(f"{self.round_points}, 'loss'\n")
+        self.round += 1
+        self.f.write(f"{self.round},{self.round_points},'loss'\n")
 
 #==============================================================================
 
