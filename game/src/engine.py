@@ -15,6 +15,8 @@ class Engine():
         self.rolls = int()
         # [state], is this round a loss or a win
         self.state = bool
+        # count for testing
+        self.count = 0
     
 #==============================================================================
 
@@ -57,7 +59,6 @@ class Engine():
     def ask_player(self):
         # Player must decided wether to roll again or keep points
         choice = self.player.roll_or_stay(self.score.dice, self.round_points)
-        log(f'Choice = {choice}')
         if choice:
             self.roll_dice()
         else:

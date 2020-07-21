@@ -1,8 +1,16 @@
-def imp():
+from scipy.stats import norm
+import numpy as np
 
 
-def plot_just_scores(pd_df, ax):
-    # Takes axis and pd_df of test data and plots all 
-    # the scores regardless of wins or loss.
-    ax.hist(pd_df['score'], bins=100, range=(0, 1500))
-    ax.set_yticklabels('')
+def bootstrap(x):
+    # takes set of data and returns normal distribution.
+    mean = []
+    std = []
+    for _ in range(5000):
+        boot = np.random.choice(
+                a=x,
+                size=5000,
+                replace=True)
+    mean.append(boot.mean())
+    std.append(boot.std())
+    return 

@@ -1,4 +1,5 @@
 from hopper import log
+import random
 
 class Player():
     '''This script houses all the different players (located in the 
@@ -11,7 +12,8 @@ class Player():
         self.funcs = {
             'karen' : self.karen,
             'wyatte' : self.wyatte,
-            'perfect' : self.perfect
+            'perfect' : self.perfect,
+            'random' : self.random
         }
         
         self.name = self.funcs[name]
@@ -46,20 +48,23 @@ class Player():
 #==============================================================================
 
     def karen(self):
-        if self.score > 750:
-            return self.stay
-        else:
-            return self.roll
+        pass
+        #else:
+         #   return self.roll
 #==============================================================================
 
-    def stan(self, dice):
+    def stan(self):
         pass
 
 #==============================================================================
 
     def perfect(self):
-        log('perfect\'s turn')
         return self.roll
+
+#==============================================================================
+
+    def random(self):
+        return random.choice([True, False])
 
 #==============================================================================
 
