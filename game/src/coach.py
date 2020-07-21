@@ -21,8 +21,6 @@ class Player():
         self.score = int()
 
     def roll_or_stay(self, dice, score):
-        self.dice = dice
-        self.score = score
         return self.name()
 
 
@@ -39,21 +37,13 @@ class Player():
 
     def wyatte(self):
         dice_list = [_ for _ in self.dice if _.in_play]
+        return len(dice_list) >= 2:
 
-        if len(dice_list) >= 2:
-            return self.roll
-        else:
-            return self.stay
 
 #==============================================================================
 
     def karen(self):
         return self.score >= 500
-
-#==============================================================================
-
-    def stan(self):
-        pass
 
 #==============================================================================
 
