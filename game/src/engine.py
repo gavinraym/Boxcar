@@ -53,7 +53,7 @@ class Engine():
         # Check if player wants to roll again
         else:
             self.ask_player()
-
+        if self.playername != ''
 #==============================================================================
     
     def ask_player(self):

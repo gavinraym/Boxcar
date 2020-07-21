@@ -11,6 +11,6 @@ def bootstrap(x):
                 a=x,
                 size=5000,
                 replace=True)
-    mean.append(boot.mean())
-    std.append(boot.std())
-    return 
+        mean.append(boot.mean())
+        std.append(boot.std())
+    return norm(np.mean(mean), np.mean(std))

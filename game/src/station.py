@@ -27,11 +27,10 @@ def take_sample(vp_name='perfect'):
     # Returns n number of scores as np.array
     engine = Engine(vp_name)
     f = open(f'../data/{vp_name}.csv', 'w+')
-    f.write('score,outcome')
+    f.write('score,outcome\n')
     for _ in range(5000):
         engine.play_round()
         f.write(f'{engine.round_points},{engine.state}\n')
-
 
 
 if __name__ == '__main__':
