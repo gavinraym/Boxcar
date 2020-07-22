@@ -1,5 +1,5 @@
 from cabouse import Score
-from hopper import display
+from hopper import display_win, display_loss
 from hopper import log
 from coach import Player
 import csv
@@ -8,6 +8,7 @@ class Engine():
     def __init__(self, player):
         # player and score objects used
         self.player = Player(player)
+        self.palyer_name = player
         self.score = Score()
         # Round points are not awarded until end of round
         self.round_points = int()
@@ -25,7 +26,7 @@ class Engine():
         # Turns are managed on player.py.
         # Rounds continue until a player reaches 10,000 points.
         self.round_points = 0
-        self.score.reset_dice()
+        [die.reset() for die in self.score.dice]
         self.rolls = 3     
 
         # Keep rolling until the player loses, chooses to stop, 
@@ -47,13 +48,17 @@ class Engine():
         # Check if player scored
         if self.score.points == 0:
             self.lose_round()
+        # Check if player used all dice
+        elif len([_ for _ in self.score.dice if _.in_play]) == 0:
+            self.rolls = 3
+            self.ask_player()
         # Check if player has no more rolls, win!!!
         elif self.rolls == 0:
             self.win_round()
         # Check if player wants to roll again
         else:
             self.ask_player()
-        if self.playername != ''
+
 #==============================================================================
     
     def ask_player(self):
@@ -68,11 +73,15 @@ class Engine():
 
     def win_round(self):
         self.state = True
+        if self.palyer_name == 'terminal':
+            display_win(self.score.dice, self.round_points)
 
 #==============================================================================
 
     def lose_round(self):
         self.state = False
+        if self.palyer_name == 'terminal':
+            display_loss(self.score.dice)
 
 #==============================================================================
 

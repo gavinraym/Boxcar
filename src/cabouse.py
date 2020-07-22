@@ -1,5 +1,4 @@
 from bum import Die
-from hopper import display
 from hopper import log
 
 class Score():
@@ -90,7 +89,7 @@ class Score():
 
                 # Count sixes
                 sixes = [_ for _ in self.dice if _.pips() == 6]
-                points =[0, 0, 0, 0, 600, 1200, 1800][len(sixes)]
+                points =[0, 0, 0, 600, 1200, 1800, 2400][len(sixes)]
                 if points: self._award_points(points, sixes)
 
 #==============================================================================
@@ -98,12 +97,6 @@ class Score():
         # Ends roll by returning number of dice and points 
         n = len([_ for _ in self.dice if _.in_play])     
         return  n, self.points
-
-#==============================================================================
-
-    def reset_dice(self):
-        self.dice = [Die() for _ in range(6)]
-        self.points = 0
 
 #==============================================================================
 

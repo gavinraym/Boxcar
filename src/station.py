@@ -15,21 +15,19 @@ def return_mean(rounds):
         data.append(engine.round_points)
     return np.mean(data)
 
-def define_optimal_sample_size():
+def define_optimal_sample_size(n=1000):
     f = open('../data/batchtests.csv', 'a')
-    #f.write('batch_size,mean\n')
- #   for batches in range(1, 6000, 100):
     for _ in range(100):
-        mean = int(return_mean(7000))
-        f.write(f'{7000}, {mean}\n')
+        mean = int(return_mean(n))
+        f.write(f'{n}, {mean}\n')
         print(_)
 
-def take_sample(vp_name='perfect'):
+def take_sample(vp_name='perfect', n=8000):
     # Returns n number of scores as np.array
     engine = Engine(vp_name)
-    f = open(f'../data/{vp_name}.csv', 'w+')
+    f = open(f'../data/{vp_name}1.csv', 'w+')
     f.write('score,outcome\n')
-    for _ in range(5000):
+    for _ in range(n):
         engine.play_round()
         f.write(f'{engine.round_points},{engine.state}\n')
 

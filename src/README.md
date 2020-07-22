@@ -1,6 +1,6 @@
 # Boxcar
 
-The boxcar version of this game was developed by train hoppers in the 1920's (hence the name). It was played fast, with the players calling out slang terms for the different scores. For more information on the game, including how the dice are scored, check out hte wikipedia page.
+The boxcar version of this game was developed by train hoppers in the 1920's (hence the name). It was played fast, with the players calling out slang terms for the different scores. For more information on the game, including how the dice are scored, check out the wikipedia page.
 
 **https://en.wikipedia.org/wiki/Dice_10000**
 
