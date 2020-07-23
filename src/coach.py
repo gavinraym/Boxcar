@@ -10,7 +10,8 @@ class Player():
             'wyatte' : self.wyatte,
             'perfect' : self.perfect,
             'random' : self.random,
-            'terminal' : self.terminal
+            'terminal' : self.terminal,
+            'judy' : self.judy
         }
         self.name = self.funcs[name]
 
@@ -40,7 +41,12 @@ class Player():
 
     def karen(self, dice, score):
         # This VP is based solely on current score.
-        return score >= 750
+        if score < 350:
+            return True
+        elif score > 1000:
+            return False
+        else:
+            return self.wyatte(dice,score)
 
 #==============================================================================
 
@@ -62,3 +68,10 @@ class Player():
         display_choice(dice, score)
         return input() in ['y','Y','yes','Yes','YES']
 
+#==============================================================================
+
+    def judy(self, dice, score):
+        # A more sophisticated player
+        map = {1:200,2:400,3:600,4:800,5:1100,6:1500,0:2500}
+        num = len([_ for _ in dice if _.in_play])
+        return score < map[num]

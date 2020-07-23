@@ -22,10 +22,11 @@ def define_optimal_sample_size(n=1000):
         f.write(f'{n}, {mean}\n')
         print(_)
 
-def take_sample(vp_name='perfect', n=8000):
+def take_sample(vp_name='perfect', n=8000, filename=None):
+    filename = filename or vp_name
     # Returns n number of scores as np.array
     engine = Engine(vp_name)
-    f = open(f'../data/{vp_name}1.csv', 'w+')
+    f = open(f'../data/{filename}.csv', 'w+')
     f.write('score,outcome\n')
     for _ in range(n):
         engine.play_round()

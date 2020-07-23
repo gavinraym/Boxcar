@@ -2,24 +2,21 @@
 ### 7.16.2020
 ### Gavin Ray, Galvanize DS-RFT4 Capstone One
 
-## Abstract
 
-Attending the Dice Masters world championships would add huge cred to my pro-gaming portfolio. While I could probably get there with my skills as they currently stand, it would be much better for me to optimize my playing style to better ensure a rank of grand master. Simple training for this event is simply not enough. I also need a method of evaluation that allows comparing different playstyles. The Boxcar Simulator with various Virtual Players (VPs), is able to define a standard or evaluation. This study will show how it can be used to determine the relative success of a human player. 
+While play styles, techniques, and theory is well documented for popular games like chess, the simple yet elegant game of Boxcar is still widely unknown. This  Boxcar Simulator is able to define a standard of evaluation for the game in order to help player improve their scores. It utilizes several simple Virtual Players (VPs) that represent the most common play styles. By running through the simulation, human players can compare themselves to the built in VPs, and gain insight into their own ability.
 
-## Hypothesis
+This readme is split into two phases. The first describes the simulation and how to it is used. The VPs are described in detail, and an analysis of their abilities is provided. Standards for testing have also been set. The second phase gives an example of one player who benefited from using this simulation. For more information on the calculation used, please see the Jupyter Notebook located in the directory labeled 'eda'. 
 
-Null hypothesis: Scores from the human player are more similar to the scores of the imperfect VPs.
+## Phase One:
 
-Alternate hypothesis: Scores from the human player are more similar to the scores of the Perfect VP. 
-
-
-## Virtual Players (vp)
+### Virtual Players (vp)
 In this game, players are repeatedly given one choice--roll or stay? To make this decision, the player mainly looks at how many dice will be used if rolling, and how many points will be made if staying. I’ve also added a third player that emulates ineffective human behavior as a control.
 
-- Perfect: This player always rolls, and is evaluated without a loss condition.
-- Wyatte: Evaluates decisions solely based on dice probabilities. 
-- Karen: Disregards all parameters except current round score.
-- Random: Has a 50/50 chance to chooses either roll or stay.
+- Perfect: This VP always rolls, and is evaluated without a loss condition. It represents the scores of a person who can tell the future, and therefore knows exactly when to stop rolling. For our purposes, it represents the upper boundary of what is possible even though it's performance is impossible to replicate without cheating.
+- Wyatte: This VP represents players who are only concerned with dice probabilities. Because it is less than probable to score with 2 or less dice, this VP will always stop rolling when it has only 2 dice available. Likewise, it will keep rolling when it has 3 or more dice available.
+- Karen: For this VP, only score is considered. There is a popular belief in Boxcar communities that one should always roll with less than 350 points, but never when over 1000. This VP follows this ancient wisdom. When the score is between these two points, it follows the same logic as Wyatte.
+- Judy: The most sophisticated VP, Judy uses 6 different algorithms. 
+- Random: Just like it sounds, this VP chooses randomly whether to roll or stay. It is intended as a lower boundary benchmark. If you can't beat the random VP, you should probably move on to a different game. 
 
 
 ## Milestones
