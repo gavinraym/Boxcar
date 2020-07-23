@@ -12,6 +12,6 @@ Requires two initializers: coach object and save file. The Engine object will pl
 
 This object houses the various players that are used when playing the game. One player must be selected at instantiation, and will be used throughout it's life. Coach recieves a set of dice and a score with roll_or_stay() function, and returns a boolean, True == roll, False == stay. Designating the player as 'Terminal' will allow a human player to make this decision.
 
-
+## 3.1 class 
 
 This virtual version of the game includes several virtual players of the game. It will play through a specified number of rounds

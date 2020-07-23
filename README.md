@@ -9,26 +9,21 @@ This readme is split into two phases. The first describes the simulation and how
 
 ## Phase One:
 
-### Virtual Players (vp)
-In this game, players are repeatedly given one choice--roll or stay? To make this decision, the player mainly looks at how many dice will be used if rolling, and how many points will be made if staying. I’ve also added a third player that emulates ineffective human behavior as a control.
+### Defining Test Parameters
+Before running the simulation and comparing our VPs, it is important that we define how our tests will be performed. It is easy to run numerous simulations on our VPs in a short amount of time, and have chosen to require 8,000 samples each before starting analysis. In addition, we will also utilize the Central Limit Theorem by taking the mean and standard deviation of 8,000 samples taken from the original data with replacement. The resulting distributions of the means are shown below.
 
-- Perfect: This VP always rolls, and is evaluated without a loss condition. It represents the scores of a person who can tell the future, and therefore knows exactly when to stop rolling. For our purposes, it represents the upper boundary of what is possible even though it's performance is impossible to replicate without cheating.
-- Wyatte: This VP represents players who are only concerned with dice probabilities. Because it is less than probable to score with 2 or less dice, this VP will always stop rolling when it has only 2 dice available. Likewise, it will keep rolling when it has 3 or more dice available.
-- Karen: For this VP, only score is considered. There is a popular belief in Boxcar communities that one should always roll with less than 350 points, but never when over 1000. This VP follows this ancient wisdom. When the score is between these two points, it follows the same logic as Wyatte.
-- Judy: The most sophisticated VP, Judy uses 6 different algorithms. 
+![sim_size_test]($PWD/../images/sim_size_test.png) ![sample_size_test]($PWD/../images/sample_size_test.png)
+
+### Comparing VPs
+
+Now we are ready to start talking about our Virtual Players! In this game, players are repeatedly given one choice--roll or stay? To make this decision, the player mainly looks at how many dice will be used if rolling, and how many points will be made if staying. These VP utilize various strategies to make this decision. As you would expect, some are better than others.
+
+![vp_compare]($PWD/../images/vp_compare.png)
+
 - Random: Just like it sounds, this VP chooses randomly whether to roll or stay. It is intended as a lower boundary benchmark. If you can't beat the random VP, you should probably move on to a different game. 
+- Wyatte: This VP represents players who are only concerned with dice probabilities. Because it is less than probable to score with 2 or less dice, this VP will always stop rolling when it has only 2 dice available. Likewise, it will keep rolling whenever it has 3 or more dice available.
+- Karen: For this VP, score is considered first. There is a popular belief in Boxcar communities that one should always roll with less than 350 points, but never when over 1000. This VP follows this ancient wisdom. When the score is between these two points, it follows the same logic as Wyatte.
+- Judy: The most sophisticated VP, Judy uses 6 different algorithms. It represents an experienced player with a deep understanding of both dice probabilities and the game's scoring mechanics. Although it is definitely beatable, this VP represents a good benchmark for most players to aim for.
+- Perfect: This VP always rolls, and is evaluated without a loss condition. It represents the scores of a person who can tell the future, and therefore knows exactly when to stop rolling. For our purposes, it represents the upper boundary of what is possible even though it's performance is impossible to replicate without cheating.
 
-
-## Milestones
-1. Intermediate Stage (Perfect VP)
-
-    Initial comparisons will be made between the VPs and the Perfect Model. Because my goal is to become as good as the Perfect Model, each VP will be evaluated in terms of: how likely is it that their results could have been derived from the Perfect Model distribution. This stage will be met when I have completed data analysis and created several graphs of the comparisons. This will provide me enough material to present on Friday should I run out of time.
-
-2. Advanced Stage (Human Player)
-
-    To further the impact of this study, I will need a way to incorporate my own skills on the same level of the VPs. This can be done via a terminal interface. Because I will not be able to play thousands of games like the VPs, my data will have to be bootstrapped before analysed. Once done, I will be able to compare my results to those of the VPs in order to determine if I should be incorporating more of one playing style or another.
-
-3. Future Stage (Develop The Perfect Play Style)
-
-    I might eventually want to code a sophisticated VP that can take my place at the Dice Masters world championships, as games between high ranking players and AI have become increasingly popular. I do not yet know how to do this, but am very excited to learn! 
-
+## Phase Two

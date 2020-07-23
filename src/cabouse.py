@@ -102,10 +102,6 @@ class Score():
 
 if __name__ == '__main__':
     
-    sobj = Score()
-    sobj.roll()
-    log('\n')
-    sobj.roll()
     
 
 

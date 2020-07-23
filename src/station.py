@@ -32,7 +32,6 @@ def take_sample(vp_name='perfect', n=8000, filename=None):
         engine.play_round()
         f.write(f'{engine.round_points},{engine.state}\n')
 
-
 if __name__ == '__main__':
     pass
 
