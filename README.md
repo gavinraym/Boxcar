@@ -7,7 +7,7 @@ While play styles, techniques, and theory is well documented for popular games l
 
 This Boxcar Simulator is able to define a standard of evaluation and help players better understand the game. It uses several simple Virtual Players (VPs) which represent some of the most common play styles. By running through the simulation themselves, human players can be compared to the built-in VPs, giving valuable insighs into the effectiveness of an individual's play style. 
 
-For those looking for a coding challenge, your own VPs can be added to [coach.py]($PWD/src/coach.py) and compared to the ones I made. Check out [docs.md]($PWD/src/docs.md) for detailed descriptions of each class. For more information on the Python code used in the statistical analysis and to make the graphs used in this document, check out [this Jupyter notebook]($PWD/eda/EDA.ipynb).  
+For those looking for a coding challenge, your own VPs can be added to [coach.py]($PWD/../src/coach.py) and compared to the ones I made. Check out [docs.md]($PWD/../src/docs.md) for detailed descriptions of each class. For more information on the Python code used in the statistical analysis and to make the graphs used in this document, check out [this Jupyter notebook]($PWD/../notebooks/exploratory.ipynb).  
 
 ## Phase One:
 
@@ -15,7 +15,7 @@ For those looking for a coding challenge, your own VPs can be added to [coach.py
 
 An initial evaluation of scores from the Perfect VP lets us see that we are dealing with a very unique distribution shape. Because of this, I'm going to utilize the central limit theorem to define distributions of the mean scores for each VP. Comparing these distributions will be much easier to analyze. 
 
-![vp_compare]($PWD/../images/vp_compare.png)
+![vp_compare]($PWD/../images/sim_size_test.png)
 
 
 Before running the simulation and comparing our VP's means, I want to define how the tests should be performed. It is easy to run numerous simulations on our VPs in a short amount of time, but I do not want to discourage others from repeating my experiment based on processing time. So, we will collect 8,000 samples from each VP before starting analysis, and then bootstrap 8,000 samples from the original data with replacement. The process by which I arrived at this number is shown below.
@@ -58,6 +58,14 @@ In order to determine the p-value difference between these distributions, I used
 
 ## Phase Three
 
-For fun, I also decided to write a program that uses Bayesian statistics to evaluate player scores. For now, the evaluation takes place after all test scores have been recorded. The results are written to a csv. But I plan on adding a function on [station.py]($PWD/src/station.py) that will evaluate players as they play. It will run only as long as it takes to determine what VP they are most similar to with 95% confidence. 
+For fun, I also decided to write a program that uses Bayesian statistics to evaluate player scores. For now, the evaluation takes place after all test scores have been recorded. The results are written to a csv. But I plan on adding a option when playing the simulation that evaluates players as they play. It will run only as long as it takes to determine what VP they are most similar to with 95% confidence. For more info on this side project, look at the [bayes testing notebook]($PWD/../bayes/bayes_testing.ipynb). 
 
-There is one other way in which I plan on improving the programs use of Bayes. Several of the current VPs have a very limited range of possible scores. Both Karen and Wyatte will rarely score above 1500 points, and never at scores above 3000. Due to the nature of Bayes, if a player even once gets a score that the VP has not recorded, the player will no longer be able to match with that VP. It is accurate for Bayes to function this way; it is the VPs that are failing to represent the play styles they are based on. By running 5 million scores of the Judy, Random, and Perfect VPs, I was able to record instances of scoring for almost all possible scores. As far as I can tell, these three VPs are functioning in the Bayes program. In the future I would like to add more VPs that can be used in Bayes, or update the current ones.
+There is one other way in which I plan on improving the Bayes program's effectiveness. Several of the current VPs have a very limited range of possible scores. Both Karen and Wyatte will rarely score above 1500 points, and never at scores above 3000. Due to the nature of Bayes, if a player even once gets a score that the VP has not recorded, the player will no longer be able to match with that VP. It is accurate for Bayes to function this way; it is the VPs that are failing to represent the play styles they are based on. By running 5 million scores of the Judy, Random, and Perfect VPs, I was able to record instances of scoring for almost all possible scores. As far as I can tell, these three VPs are functioning in the Bayes program. In the future I would like to add more VPs that can be used, or update the current ones.
+
+## Phase Four
+
+I imagine some people might be concerned about the processing demands of running this simulation. [Here]($PWD/../notebooks/alg_complexity.ipyng) is a quick analysis of the algarithmic complexity of the Boxcar simulator that will hopefully prove the linearity of the program. 
+
+![algorithmic_complexity]($PWD/../images/alg_test.png)
+
+This graph seems to show some fluctuations from the slope when running more than 3000 rounds at a time. However, this is only because I used Jupyter Notebook's timeit function. At first, the function ran 10 tests and took the mean. But at higher round counts, it switched to doing just one test, giving less accurate results.
