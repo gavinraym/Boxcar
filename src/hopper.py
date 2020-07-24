@@ -2,16 +2,17 @@ from os import system, name
 import time
 import random
     
-
-
-    ## A Hopper is a type of traincar. It's steep sides allow for
-    ## the transportation of large quantities of raw material,
-    ## like coal. This class does the same for the boxcar game.
-    ## It containes functions for the other objects to use, mainly
-    ## for displaying information to the terminal.
+"""
+A Hopper is a type of traincar. It's steep sides allow for
+    the transportation of large quantities of raw material,
+    like coal. This class does the same for the boxcar game.
+    It containes functions for the other objects to use, mainly
+    for displaying information to the terminal.
+"""
 
 #==============================================================================
 
+# Prints a log to terminal. Used in testing.
 def log(logstring):
     print(f'log: {logstring}')
 

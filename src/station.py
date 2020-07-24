@@ -5,6 +5,11 @@ import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
 
+'''
+This script is used via the terminal to run simulations and 
+write the results to file.
+'''
+
 def define_optimal_sample_size(start, stop, step):
     # Generates samples of sizes defined by args
     # WILL CRASH YOUR COMPUTER IF RUN IN SINGLE GO!

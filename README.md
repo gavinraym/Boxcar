@@ -3,9 +3,11 @@
 ### Gavin Ray, Galvanize DS-RFT4 Capstone One
 
 
-While play styles, techniques, and theory is well documented for popular games like chess, the game of boxcar is still widely unknown. It is believed to originate during the Great Depression, when railcar hopping hobos played the dice game to pass the time. Players use six dice, and are allowed to roll up to three times. Each roll, if taken, has the potential of gaining the player more points, or taking them all away. The essence of the game comes down to one decision: roll or stay. Scoring is quite complicated, so I won't go into it here. For a full description, check out the [wikipedia page](https://en.wikipedia.org/wiki/Dice_10000). (boxcar is a version of 10,000)
+While play styles, techniques, and theory is well documented for popular games like chess, the game of boxcar is still widely unknown. It is believed to originate during the Great Depression, when railcar hopping hobos played the dice game to pass the time. Players use six dice, and are allowed to roll up to three times. Each roll, if taken, has the potential of gaining the player more points, or taking them all away. The essence of the game comes down to one decision: roll or stay. Scoring is quite complicated, so I won't go into it here. For a full description of the game, check out the [wikipedia page](https://en.wikipedia.org/wiki/Dice_10000). (boxcar is a version of 10,000)
 
-This Boxcar Simulator is able to define a standard of evaluation for the game and help players to better understand the game. It uses several simple Virtual Players (VPs) which represent the most common play styles. By running through the simulation, human players can compare themselves to the built-in VPs, and gain insight into their own play styles. For those looking for a coding challenge, VPs can be added to [coach.py]($PWD/src/coach.py) and compared to the ones I made. For more information on the Python code used in the statistical analysis and to make the graphs, check out [this Jupyter notebook]($PWD/eda/EDA.ipynb).  
+This Boxcar Simulator is able to define a standard of evaluation and help players better understand the game. It uses several simple Virtual Players (VPs) which represent some of the most common play styles. By running through the simulation themselves, human players can be compared to the built-in VPs, giving valuable insighs into the effectiveness of an individual's play style. 
+
+For those looking for a coding challenge, your own VPs can be added to [coach.py]($PWD/src/coach.py) and compared to the ones I made. Check out [docs.md]($PWD/src/docs.md) for detailed descriptions of each class. For more information on the Python code used in the statistical analysis and to make the graphs used in this document, check out [this Jupyter notebook]($PWD/eda/EDA.ipynb).  
 
 ## Phase One:
 
@@ -51,6 +53,10 @@ What I found was that I'm recording more scores in the 100 to 300 range, while t
 In order to determine the p-value difference between these distributions, I used the Koglomorov Smirnov hypothesis test. Comparing the first round of my scores with the second round gives me a p value of .0066. This shows enough difference to say that the distribution of my scores has changed! Plotting a distribution of the means of my new scores along with the old lets us see just how much better I have become. It's impossible to say for sure with such a small sample of my scores, but it's possible that I am now scoring better than the Judy VP!
 
 ![hp2_compare]($PWD/../images/hp3_compare.png)
+
+
+
+## Phase Three
 
 For fun, I also decided to write a program that uses Bayesian statistics to evaluate player scores. For now, the evaluation takes place after all test scores have been recorded. The results are written to a csv. But I plan on adding a function on [station.py]($PWD/src/station.py) that will evaluate players as they play. It will run only as long as it takes to determine what VP they are most similar to with 95% confidence. 
 

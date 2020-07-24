@@ -3,17 +3,12 @@ from hopper import log
 
 class Score():
     def __init__(self):
-        ''' -Takes in a list of dice of any size,
-         
-            -calculates points gained,
-        
-            -separates dice when used. 
-        
-        If [dice] is empty, the player should be awarded
-        a brand new set of six dice to play with. 
-        
-        If [dice] is empty, the player has failed to points
-        and should receive a game over. (no points received)'''
+        ''' -Creates 6 dice upon instantiation, and 
+        manages them throughout the simulation. This 
+        script rolls the dice, calculates score, and
+        sets dice.in_play to False when a score is 
+        achieved. 
+        '''
         self.dice = [Die() for _ in range(6)]
         self.points = 0
     

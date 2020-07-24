@@ -3,9 +3,9 @@ import random
 
 class Player():
     '''This script houses the VPs. One must be indicated at instantiation
-    with a string [name] that matches one of.'''
+    with a string [name].'''
     def __init__(self, name):
-        self.funcs = {
+        self._funcs = {
             'karen' : self.karen,
             'wyatte' : self.wyatte,
             'perfect' : self.perfect,
@@ -13,10 +13,10 @@ class Player():
             'terminal' : self.terminal,
             'judy' : self.judy
         }
-        self.name = self.funcs[name]
+        self._name = self._funcs[name]
 
     def roll_or_stay(self, dice, score):
-        return self.name(dice, score)
+        return self._name(dice, score)
 
 
 
