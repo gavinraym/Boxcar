@@ -46,7 +46,7 @@ class Player():
         elif score > 1000:
             return False
         else:
-            return self.wyatte(dice,score)
+            return random.choice([True, False])
 
 #==============================================================================
 
