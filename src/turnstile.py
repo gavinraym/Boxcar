@@ -5,10 +5,9 @@ import numpy as np
 import matplotlib.pyplot as plt
 from random import sample
 
-'''The objective here is to use gradient ascent to 
-improve the Perfect VP. Because losses are counted 
-as wins for the Perfect VP, the scores it achieves are
-not attainable in real life and therefore a poor 
+'''Losses are counted as wins for the Perfect VP, 
+therefore it's scores are not attainable in real life 
+and it is a poor 
 representation of the upper boundary of possible scores.
 The VP defined through this gradient ascent model 
 will replace the Perfect VP as an attainable method for 
@@ -56,94 +55,76 @@ which is 657. To achieve this, the model uses the equation
 
 
 '''
-    # Loops through each range of scores
-    # Builds a CEO for each combo of scores
-    # Runs run_sim once for each COE
 
-    # We will expect the first prior to be the 
-    # same mean of scores as the Random VP. So, 
-    # to calculate alpha, in this case the size
-    # of the step from the current coefficient
-    # value to the next, is the prior / alpha
-        # Even the Perfect VP has fluctuations of score
-        # means around 2 points for 8,000 games tested.
-        # because of this fluctuation, we can allow the 
-        # game to determine when we are close enough to 
-        # an accurate evaluation of our COE. 
 
 def gradient_shift():
+
+    # Define local variables
     cycles = 0
-    count = list()
-    COE = run_simulations({_:0 for _ in range(6)})
+    COE = {_:0 for _ in range(6)}
+    COE['score'] = run_simulations(COE)
+
+    # Start a CSV for recording each cycle's results
     f = open('../data/GAcycles.csv', 'w+') 
-    f.write(f'Cycle,COE,R\n')
-    f.close()
-    f = open('../data/GAcoes.csv', 'w+') 
-    f.write(f'Feature,Variate,COE\n')
-    f.close()
+    f.write(f'Cycle,1,2,3,4,5,0,Mean_Score\n')
+    
+    # Features represent the pips on the dice. For example, 
+    # if 3 dice are in play, use the score threshold at COE[3]
+    for feature in [0,5,4,3,2,1]: 
 
-    while cycles<1000 and len(count)<10:
-        print(f'{cycles}')
-        cycles += 1
-        COE_hat = run_simulations(COE)
-        COE_hat = score_COEs(COE)
-        R = COE_hat['score'] - COE['score']
-        if R > 0:
-            COE = COE_hat.copy()
-            count = [COE]
-        elif R > -1:
-            count.append(COE_hat.copy())
+        # Begin cycle
+        print(f'feature = {feature}')
+        COE_hat = COE.copy()  
+        beta = 50 
+        COE_hat[feature] = beta    
+        COE_hat['score'] = run_simulations(COE)
+        print(COE_hat)
+
+        # Keep as long as the mean score is still increasing
+        while COE_hat['score'] > COE['score'] or beta == 0:
             
-        print(f'R = {R}\ncurrent COE = {COE_hat}\ncount list ={len(count)}\n\n')
-        f = open('../data/GAcycles.csv', 'a')
-        f.write(f'{cycles},{COE_hat},{R}\n')
-        f.close()
-    print(count)
-
-def score_COEs(COE):
-    f = open('../data/GAcoes.csv', 'a') 
-    for (feature, variate) in get_tests(COE):
-        COE_hat = COE.copy()
-        COE_hat[feature] = variate 
-        
-        run_simulations(COE_hat) 
-        if COE_hat['score'] > COE['score']:
+            # Save COE_hat as actual coe, and record results
             COE = COE_hat.copy()
-        f.write(f"{feature},{variate},{COE}\n")
-    f.close()
-    return COE
+            cycles += 1
+            f.write(f"{cycles},{COE[1]},{COE[2]},{COE[3]},{COE[4]},{COE[5]},{COE[0]},{COE['score']}\n")
+            print(f'{COE}')
 
-def get_tests(COE):
-    # Set range of score boundaries to test    
-    tests = list()
-    for feature in range(6):
-        n = max(COE[feature]-150, 0)
-        steps = range(n,n+251, 50)
-        #steps = [n-200, n-100, n-50, n, n+50, n+100, n+200]       
-        for variate in steps:
-            tests.append((feature, variate)) 
-    return sample(tests, len(tests))
+            # Increase beta-coefficient and test new COE_hat
+            beta += 50
+            COE_hat[feature] = beta
+            COE_hat['score'] = run_simulations(COE_hat)
 
-def run_simulations(COE):
+
+
+
+def run_simulations(COE, samples=80000, sims=80000):
+
+    # Create local variables
     engine = Engine('custom', COE)
-    score = 0
-    for count in range(100):
-        means = list()
-        for _ in range(2000):
+    mean_sum = 0
+
+    # iter through number of sample means to take
+    for _ in range(samples):
+
+        # iter through number of simulations to run per sample
+        score_sum = 0
+        for _ in range(sims):
+
+            # If the round wins, same score. Else, save 0.
             engine.play_round()
-            if engine.state:
-                means.append([engine.round_points])
-            else:
-                means.append([0])
-        score = (score*count + np.mean(means))/(count+1)
-    COE['score'] = score
-    return COE
+            if engine.state: score_sum += engine.round_points
+
+        
+        mean_sum += score_sum/sims 
+    print(mean_sum/samples)
+    
+    return mean_sum/samples
 
 
             
         
 if __name__ == '__main__':
-    
+    gradient_shift()
     pass
     # while R > prior:
     #         f.write(f'{COE.values()},{R}\n')
