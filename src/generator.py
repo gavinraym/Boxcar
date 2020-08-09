@@ -25,26 +25,26 @@ def run_simulations(sims=8000):
 
 def create_COE():
     return {
-        1: random.choice(range(0,300,50)),
-        2: random.choice(range(50,500,50)),
-        3: random.choice(range(200,700,50)),
-        4: random.choice(range(400,900,50)),
-        5: random.choice(range(600,1500,50)),
-        0: random.choice(range(1000,2000,50))
+        1: random.choice(range(0,1000,50)),
+        2: random.choice(range(0,1500,50)),
+        3: random.choice(range(0,2000,50)),
+        4: random.choice(range(0,2500,50)),
+        5: random.choice(range(0,3000,50)),
+        0: random.choice(range(0,4000,50))
     }
 
 def run(n, path):
-    f = open(path, 'w')
+    f = open(path, 'a')
     for _ in range(n):
         COE = run_simulations()
         f.write(f"{COE[1]},{COE[2]},{COE[3]},{COE[4]},{COE[5]},{COE[0]},{COE['score']}\n")
 
 
 if __name__ == '__main__':
-    n = 1000
+    n = 1000000
     path = '../data/samples.csv'
-    if sys.argv[1]:
+    if len(sys.argv) == 2:
         n = int(sys.argv[1])
-    if sys.argv[2]:
+    if len(sys.argv) == 3:
         path = f'../data/{sys.argv[2]}.csv'
     run(n,path)
