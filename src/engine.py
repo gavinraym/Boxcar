@@ -12,9 +12,9 @@ class Engine():
     number of rolls still remaining. The function play_round triggers
     a round to execute. 
     '''
-    def __init__(self, player):
+    def __init__(self, player, COE=None):
         # player and score objects used
-        self._player = Player(player)
+        self._player = Player(player, COE)
         self._palyer_name = player
         self._score = Score()
         # A Round starts with 3 dice rolls.

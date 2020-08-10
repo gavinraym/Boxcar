@@ -12,11 +12,7 @@ write the results to file.
 
 def define_optimal_sample_size(start, stop, step):
     # Generates samples of sizes defined by args
-    # WILL CRASH YOUR COMPUTER IF RUN IN SINGLE GO!
-    # Start with (500, 250, 3000) and increase beg
-    # and end slowly.
-    #
-    # !Manually add [size,mean] to top of the file!
+
     f = open('../data/batchtests.csv', 'a')
     engine = Engine('perfect')
     # First loop: Ranges of sample sizes to test
@@ -47,7 +43,7 @@ def define_optimal_bootsize(start, stop, step):
     # First loop: how many samples to take with replacement
     for n in range(start, stop, step):
         # Second loop: recording 250 values for comparison
-        for _ in range(250):
+        for _ in range(8000):
             sample = np.random.choice(data, n, replace=True)
             f.write(f'{n},{np.mean(sample)},{np.std(sample)}\n')
             print(f'{n},{_}')

@@ -58,7 +58,7 @@ In order to determine the p-value difference between these distributions, I used
 
 ## Phase Three
 
-For fun, I also decided to write a program that uses Bayesian statistics to evaluate player scores. For now, the evaluation takes place after all test scores have been recorded. The results are written to a csv. But I plan on adding a option when playing the simulation that evaluates players as they play. It will run only as long as it takes to determine what VP they are most similar to with 95% confidence. For more info on this side project, look at the [bayes testing notebook]($PWD/../bayes/bayes_testing.ipynb). 
+For fun, I also decided to write a program that uses Bayesian statistics to evaluate player scores. For now, the evaluation takes place after all test scores have been recorded. The results are written to a csv. But I plan on adding an option when playing the simulation that evaluates players as they play. It will run only as long as it takes to determine what VP they are most similar to with 95% confidence. For more info on this side project, look at the [bayes testing notebook]($PWD/../bayes/bayes_testing.ipynb). 
 
 There is one other way in which I plan on improving the Bayes program's effectiveness. Several of the current VPs have a very limited range of possible scores. Both Karen and Wyatte will rarely score above 1500 points, and never at scores above 3000. Due to the nature of Bayes, if a player even once gets a score that the VP has not recorded, the player will no longer be able to match with that VP. It is accurate for Bayes to function this way; it is the VPs that are failing to represent the play styles they are based on. By running 5 million scores of the Judy, Random, and Perfect VPs, I was able to record instances of scoring for almost all possible scores. As far as I can tell, these three VPs are functioning in the Bayes program. In the future I would like to add more VPs that can be used, or update the current ones.
 
@@ -69,3 +69,4 @@ I imagine some people might be concerned about the processing demands of running
 ![algorithmic_complexity]($PWD/../images/alg_test.png)
 
 This graph seems to show some fluctuations from the slope when running more than 3000 rounds at a time. However, this is only because I used Jupyter Notebook's timeit function. At first, the function ran 10 tests and took the mean. But at higher round counts, it switched to doing just one test, giving less accurate results.
+

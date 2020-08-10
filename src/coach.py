@@ -4,16 +4,18 @@ import random
 class Player():
     '''This script houses the VPs. One must be indicated at instantiation
     with a string [name].'''
-    def __init__(self, name):
+    def __init__(self, name, COE=None):
         self._funcs = {
             'karen' : self.karen,
             'wyatte' : self.wyatte,
             'perfect' : self.perfect,
             'random' : self.random,
             'terminal' : self.terminal,
-            'judy' : self.judy
+            'judy' : self.judy,
+            'custom' : self.custom
         }
         self._name = self._funcs[name]
+        self.COE = COE
 
     def roll_or_stay(self, dice, score):
         return self._name(dice, score)
@@ -72,6 +74,18 @@ class Player():
 
     def judy(self, dice, score):
         # A more sophisticated player
-        map = {1:200,2:400,3:600,4:800,5:1100,6:1500,0:2500}
+        COE = {1:200,2:400,3:600,4:800,5:1100,6:1500,0:2500}
         num = len([_ for _ in dice if _.in_play])
-        return score < map[num]
+        return score < COE[num]
+
+#==============================================================================
+
+    def custom(self, dice, score):
+        # Custom uses the coefficients defined at instantiation. This VP
+        # was made to allow linear regression for determining the best 
+        # possible play style. See readme for more details.
+        num = len([_ for _ in dice if _.in_play])
+        if self.COE[num] == 'random':
+            return random.choice([True, False])
+        else:
+            return score < self.COE[num]
