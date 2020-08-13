@@ -1,4 +1,5 @@
-from hopper import log, display_choice, display_rolling
+from hopper import display_rolling
+from hopper import display_choice
 import random
 
 class Player():
@@ -89,3 +90,6 @@ class Player():
             return random.choice([True, False])
         else:
             return score < self.COE[num]
+
+if __name__ == '__main__':
+    pass

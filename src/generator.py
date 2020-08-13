@@ -6,6 +6,9 @@ import matplotlib.pyplot as plt
 import random
 import sys
 
+''' This script can be used for generating a large data set
+from the boxcar game. '''
+
 def run_simulations(sims=8000):
     COE = create_COE()
     # Create local variables
@@ -41,6 +44,8 @@ def run(n, path):
 
 
 if __name__ == '__main__':
+    
+    
     n = 1000000
     path = '../data/samples.csv'
     if len(sys.argv) == 2:

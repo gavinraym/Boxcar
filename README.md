@@ -1,6 +1,6 @@
 # Boxcar
 ### 7.16.2020
-### Gavin Ray, Galvanize DS-RFT4 Capstone One
+### Gavin Ray
 
 
 While play styles, techniques, and theory is well documented for popular games like chess, the game of boxcar is still widely unknown. It is believed to originate during the Great Depression, when railcar hopping hobos played the dice game to pass the time. Players use six dice, and are allowed to roll up to three times. Each roll, if taken, has the potential of gaining the player more points, or taking them all away. The essence of the game comes down to one decision: roll or stay. Scoring is quite complicated, so I won't go into it here. For a full description of the game, check out the [wikipedia page](https://en.wikipedia.org/wiki/Dice_10000). (boxcar is a version of 10,000)

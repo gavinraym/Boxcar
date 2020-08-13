@@ -1,5 +1,4 @@
 import random
-
 class Die():
     def __init__(self):
         self.pip_value = random.randint(1,6)
@@ -17,4 +16,8 @@ class Die():
         self.in_play = True
         self.show = True
         self.pip_value = random.randint(1,6)
+
+if __name__ == '__main__':
+    pass
+
 

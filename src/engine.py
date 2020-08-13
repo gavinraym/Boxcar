@@ -1,7 +1,6 @@
 from cabouse import Score
-from hopper import display_win, display_loss
-from hopper import log
 from coach import Player
+from hopper import display_win, display_loss
 import csv
 
 class Engine():
@@ -15,16 +14,12 @@ class Engine():
     def __init__(self, player, COE=None):
         # player and score objects used
         self._player = Player(player, COE)
-        self._palyer_name = player
+        self._player_name = player
         self._score = Score()
         # A Round starts with 3 dice rolls.
         self._rolls = int() 
         # Round points are not awarded until end of round
         self.round_points = int()
-        # [state], is this round a loss or a win
-        self.state = bool
-        # count used for testing
-        self.count = 0
     
 #==============================================================================
 
@@ -79,15 +74,19 @@ class Engine():
 #==============================================================================
 
     def _win_round(self):
-        self.state = True
-        if self._palyer_name == 'terminal':
+        # terminal is used for human players
+        if self._player_name == 'terminal':
             display_win(self._score.dice, self.round_points)
 
 #==============================================================================
 
     def _lose_round(self):
-        self.state = False
-        if self._palyer_name == 'terminal':
+        # If a loss, lose all points for this round
+        if self._player_name != 'perfect':
+            self.round_points = 0
+        # terminal is used for human players
+        if self._player_name == 'terminal':
+            print(type(self._score.dice))
             display_loss(self._score.dice)
 
 #==============================================================================

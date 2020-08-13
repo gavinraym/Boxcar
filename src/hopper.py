@@ -1,7 +1,7 @@
 from os import system, name
 import time
-import random
-    
+import random 
+
 """
 A Hopper is a type of traincar. It's steep sides allow for
     the transportation of large quantities of raw material,
@@ -80,8 +80,3 @@ def display_choice(dice, score):
         print(f'\nCurrent Dice: 6')
 
     print(f'\n\nAre you going to keep rolling? (y/n)')
-
-
-    
-
-  
