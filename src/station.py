@@ -1,4 +1,5 @@
 from engine import Engine
+from coach import Player
 import csv
 import argparse
 import pandas as pd
@@ -39,10 +40,21 @@ def define_optimal_sample_size(start=500, stop=7000, step=500):
             print(f'Generating samples... test #{int(n/stop*100)}.{int(sample/250*100)}% done')
     f.close()
 
+def run_test(vp_name='perfect', n=4000, t=200, file_name=None):
+    file_name = file_name or vp_name
+    engine = Engine(vp_name)
+    f = open(f'../data/{file_name}.csv', 'w+')
+    f.write('mean_score\n')
+    for _ in range(t):
+        score_sum = 0
+        for _ in range(n):
+            engine.play_round()
+            score_sum += engine.round_points
+        f.write(f'{score_sum/n}\n') 
+
 def take_sample(vp_name='perfect', n=100, file_name='sample'):
     # Writes n number of scores + outcomes to file using 
     # the specified VP.
-    file_name = file_name or vp_name
     engine = Engine(vp_name)
     f = open(f'../data/{file_name}.csv', 'w+')
     f.write('score\n')
@@ -53,19 +65,21 @@ def take_sample(vp_name='perfect', n=100, file_name='sample'):
 if __name__ == '__main__':
     clear()
     num =input('''Menu:\n
-    1)  Generate sample of scores from any VP, or play with 'terminal'.
-    2)  Run tests needed to define the optimal number of samples. (ch.2)
+    1)  Generate sample of scores from the Perfect VP. (ch.2)
+    2)  Define the optimal number of samples. (ch.2)
+    3)  Run tests on each VP.
 
     Please input a number
     ''')
     if num == '1':
-        vp_name=input('Which VP? (or use terminal to play yourself.)
-        n = int(input('How many games?'))
-        file_name = input('Save under what name?')
-        take_sample(vp_name, n, file_name)
+        take_sample()
     if num == '2':
         define_optimal_sample_size()
+    if num == '3':
+        for vp in Player()._funcs.keys():
+            if vp not in ['custom', 'terminal']:
+                run_test(vp)
+        
     
-
 
 
