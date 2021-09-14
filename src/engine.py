@@ -1,7 +1,6 @@
 from cabouse import Score
-from hopper import display_win, display_loss
-from hopper import log
 from coach import Player
+from hopper import display_win, display_loss
 import csv
 
 class Engine():
@@ -12,19 +11,18 @@ class Engine():
     number of rolls still remaining. The function play_round triggers
     a round to execute. 
     '''
-    def __init__(self, player):
+    def __init__(self, player, COE=None):
         # player and score objects used
-        self._player = Player(player)
-        self._palyer_name = player
+        self._player = Player(player, COE)
+        self._player_name = player
         self._score = Score()
         # A Round starts with 3 dice rolls.
         self._rolls = int() 
+        # Past roll's success or failure can be used by ambitious VP's...
+        self._past_rolls = list()   
         # Round points are not awarded until end of round
         self.round_points = int()
-        # [state], is this round a loss or a win
-        self.state = bool
-        # count used for testing
-        self.count = 0
+
     
 #==============================================================================
 
@@ -35,6 +33,7 @@ class Engine():
         self.round_points = 0
         [die.reset() for die in self._score.dice]
         self._rolls = 3     
+        self._past_rolls = self._past_rolls[:9]
 
         # Keep rolling until the player loses, chooses to stop, 
         # fails to score, or runs out of rolls           
@@ -44,18 +43,15 @@ class Engine():
 #==============================================================================
 
     def _roll_dice(self):
+        # Players are given three rolls... unless they score with 6 dice!
         self._rolls -= 1
         self._score.roll()
+        # Each round accumulates points until the end
         self.round_points += self._score.points
-        self._check_dice()
-
-#==============================================================================
-
-    def _check_dice(self):
         # Check if player scored
         if self._score.points == 0:
             self._lose_round()
-        # Check if player used all dice
+        # Check if player has used all dice to score
         elif len([_ for _ in self._score.dice if _.in_play]) == 0:
             self._rolls = 3
             self._ask_player()
@@ -69,8 +65,14 @@ class Engine():
 #==============================================================================
     
     def _ask_player(self):
+        # Add success to past rolls list
+        self._past_rolls.append(1)
         # Player must decided wether to roll again or keep points
-        choice = self._player.roll_or_stay(self._score.dice, self.round_points)
+        choice = self._player.roll_or_stay(
+                                    self._score.dice,
+                                    self.round_points,
+                                    self._rolls,
+                                    self._past_rolls)
         if choice:
             self._roll_dice()
         else:
@@ -79,16 +81,27 @@ class Engine():
 #==============================================================================
 
     def _win_round(self):
-        self.state = True
-        if self._palyer_name == 'terminal':
+        # Add success to past rolls list
+        self._past_rolls.append(1)
+        # terminal is used for human players
+        if self._player_name == 'terminal':
             display_win(self._score.dice, self.round_points)
+        if self._player_name == 'generate_AI_data':
+            self._player.file.write(',1\n')
 
 #==============================================================================
 
     def _lose_round(self):
-        self.state = False
-        if self._palyer_name == 'terminal':
+        # Add failure to past rolls list
+        self._past_rolls.append(0)
+        # If a loss, lose all points for this round
+        if self._player_name != 'perfect':
+            self.round_points = 0
+        # terminal is used for human players
+        if self._player_name == 'terminal':
             display_loss(self._score.dice)
+        if self._player_name == 'generate_AI_data':
+            self._player.file.write(',0\n')
 
 #==============================================================================
 
